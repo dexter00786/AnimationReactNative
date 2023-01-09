@@ -1,20 +1,12 @@
-import {
-  Dimensions,
-  SafeAreaView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
 import React from 'react';
-import ZaraCarousel from './source/ZaraCarousel';
-import ZaraCarouselHorizontal from './source/ZaraCarouselHorizontal';
+import {SafeAreaView, StatusBar, StyleSheet} from 'react-native';
+import DonutChart from './source/DonutChart';
 
 const App = () => {
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{flex: 1}}>
       <StatusBar hidden />
-      <ZaraCarouselHorizontal />
+      <DonutChart />
     </SafeAreaView>
   );
 };

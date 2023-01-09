@@ -53,22 +53,9 @@ const ZaraCarouselHorizontal = () => {
       />
       <View style={styles.pagination}>
         {images.map((_, index) => {
-          return (
-            <Animated.View
-              key={index}
-              style={[
-                styles.dot,
-                {
-                  opacity: scrollX.interpolate({
-                    inputRange: [0, 1],
-                    outputRange: [0, 1],
-                  }),
-                },
-              ]}
-            />
-          );
+          return <Animated.View key={index} style={[styles.dot]} />;
         })}
-        {/* <Animated.View
+        <Animated.View
           style={[
             styles.dotIndicator,
             {
@@ -82,7 +69,7 @@ const ZaraCarouselHorizontal = () => {
               ],
             },
           ]}
-        /> */}
+        />
       </View>
     </View>
   );
@@ -106,15 +93,16 @@ const styles = StyleSheet.create({
     width: DOT_SIZE,
     height: DOT_SIZE,
     borderRadius: DOT_SIZE,
-    backgroundColor: '#333',
+    backgroundColor: '#fff',
     marginRight: DOT_SPACING,
   },
   dotIndicator: {
     width: DOT_INDICATOR_SIZE,
     height: DOT_INDICATOR_SIZE,
     borderRadius: DOT_INDICATOR_SIZE,
-    borderWidth: 1,
-    borderColor: '#333',
+    // borderWidth: 1,
+    // borderColor: '#fff',
+    backgroundColor: '#85C9F7',
     position: 'absolute',
     top: -DOT_SIZE / 2,
     left: -DOT_SIZE / 2,
