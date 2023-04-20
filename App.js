@@ -1,12 +1,12 @@
 import React from 'react';
 import {SafeAreaView, StatusBar, StyleSheet} from 'react-native';
-import DonutChart from './source/DonutChart';
+import AnimatedHeader from './source/AnimatedHeader';
 
 const App = () => {
   return (
     <SafeAreaView style={{flex: 1}}>
       <StatusBar hidden />
-      <DonutChart />
+      <AnimatedHeader />
     </SafeAreaView>
   );
 };

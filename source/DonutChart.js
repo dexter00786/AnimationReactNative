@@ -1,5 +1,12 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {StyleSheet, Text, View, Animated, Platform} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  Animated,
+  Platform,
+  TextInput,
+} from 'react-native';
 import Svg, {G, Circle} from 'react-native-svg';
 
 const DonutChart = ({
@@ -13,11 +20,15 @@ const DonutChart = ({
   max = 100,
 }) => {
   const AnimatedCircle = Animated.createAnimatedComponent(Circle);
+  const AnimatedTextInput = Animated.createAnimatedComponent(TextInput);
+
   const halfCircle = radius + strokeWidth;
   const circleCircumference = 2 * Math.PI * radius;
 
   const animatedValue = React.useRef(new Animated.Value(0)).current;
+
   const circleRef = React.useRef(null);
+  const inputRef = React.useRef(null);
 
   const animation = toValue => {
     console.log('running');
@@ -39,40 +50,59 @@ const DonutChart = ({
         circleRef.current?.setNativeProps({strokeDashoffset});
         console.log(circleRef);
       }
+
+      if (inputRef?.current) {
+        inputRef.current.setNativeProps({
+          text: `${Math.round(v.value)}`,
+        });
+      }
     }, []);
     return () => {
       animatedValue.removeAllListeners();
     };
   });
   return (
-    <Svg
-      width={radius * 2}
-      height={radius * 2}
-      viewBox={`0 0 ${halfCircle * 2} ${halfCircle * 2}`}>
-      <G rotation={-90} origin={`${halfCircle}, ${halfCircle}`}>
-        <Circle
-          cx={'50%'}
-          cy={'50%'}
-          stroke={color}
-          strokeWidth={strokeWidth}
-          r={radius}
-          fill={'transparent'}
-          strokeOpacity={0.2}
-        />
-        <AnimatedCircle
-          ref={circleRef}
-          cx={'50%'}
-          cy={'50%'}
-          stroke={color}
-          strokeWidth={strokeWidth}
-          r={radius}
-          fill={'transparent'}
-          strokeDasharray={circleCircumference}
-          strokeDashoffset={circleCircumference}
-          strokeLinecap="round"
-        />
-      </G>
-    </Svg>
+    <View style={{width: radius * 2, height: radius * 2}}>
+      <Svg
+        width={radius * 2}
+        height={radius * 2}
+        viewBox={`0 0 ${halfCircle * 2} ${halfCircle * 2}`}>
+        <G rotation={-90} origin={`${halfCircle}, ${halfCircle}`}>
+          <Circle
+            cx={'50%'}
+            cy={'50%'}
+            stroke={color}
+            strokeWidth={strokeWidth}
+            r={radius}
+            fill={'transparent'}
+            strokeOpacity={0.2}
+          />
+          <AnimatedCircle
+            ref={circleRef}
+            cx={'50%'}
+            cy={'50%'}
+            stroke={color}
+            strokeWidth={strokeWidth}
+            r={radius}
+            fill={'transparent'}
+            strokeDasharray={circleCircumference}
+            strokeDashoffset={circleCircumference}
+            strokeLinecap="round"
+          />
+        </G>
+      </Svg>
+      <AnimatedTextInput
+        ref={inputRef}
+        underlineColorAndroid="transparent"
+        editable={false}
+        defaultValue={'0'}
+        style={[
+          StyleSheet.absoluteFill,
+          {fontSize: radius / 2, color: textColor ?? color},
+          {fontWeight: '900', textAlign: 'center'},
+        ]}
+      />
+    </View>
   );
 };
 

@@ -1,4 +1,4 @@
-import {Animated, StyleSheet, Text, View} from 'react-native';
+import {Animated, Platform, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 
 const AnimatedHeader = () => {
@@ -17,10 +17,11 @@ const AnimatedHeader = () => {
         style={styles.scrollView}
         onScroll={Animated.event(
           [{nativeEvent: {contentOffset: {y: scrolling}}}],
-          {useNativeDriver: true},
+          {useNativeDriver: Platform.OS === 'ios' ? true : false},
         )}
-        scrollEventThrottle={16}>
-        <View style={{backgroundColor: 'blue', height: 900}} />
+        // scrollEventThrottle={16}
+        bounces={false}>
+        <View style={{height: 900}} />
       </Animated.ScrollView>
     </>
   );
@@ -36,6 +37,7 @@ const styles = StyleSheet.create({
     right: 0,
     height: 80,
     backgroundColor: 'tomato',
+    // height: 100,
   },
   scrollView: {flex: 1},
 });
